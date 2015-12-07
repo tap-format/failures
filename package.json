@@ -1,0 +1,33 @@
+{
+  "name": "@untap/failures",
+  "version": "0.1.0",
+  "description": "Formatted failures for TAP output with diffs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/untap/failures.git"
+  },
+  "keywords": [
+    "untap",
+    "tap",
+    "failures",
+    "parse",
+    "diff"
+  ],
+  "author": "Scott Corgan",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/untap/failures/issues"
+  },
+  "homepage": "https://github.com/untap/failures#readme",
+  "dependencies": {
+    "chalk": "^1.1.1",
+    "diff": "^2.2.1",
+    "figures": "^1.4.0",
+    "ramda": "^0.18.0",
+    "rx": "^4.0.7"
+  }
+}
