@@ -1,6 +1,6 @@
 {
   "name": "@tap-format/failures",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Formatted failures for TAP output with diffs",
   "main": "index.js",
   "scripts": {
