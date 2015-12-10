@@ -1,5 +1,5 @@
 {
-  "name": "@untap/failures",
+  "name": "@tap-format/failures",
   "version": "0.1.0",
   "description": "Formatted failures for TAP output with diffs",
   "main": "index.js",
@@ -8,10 +8,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/untap/failures.git"
+    "url": "git+https://github.com/tap-format/failures.git"
   },
   "keywords": [
-    "untap",
+    "tap-format",
     "tap",
     "failures",
     "parse",
@@ -20,9 +20,9 @@
   "author": "Scott Corgan",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/untap/failures/issues"
+    "url": "https://github.com/tap-format/failures/issues"
   },
-  "homepage": "https://github.com/untap/failures#readme",
+  "homepage": "https://github.com/tap-format/failures#readme",
   "dependencies": {
     "chalk": "^1.1.1",
     "diff": "^2.2.1",
