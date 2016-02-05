@@ -96,16 +96,26 @@ exports.formatAssertionError = formatAssertionError
 
 function formatAssertionError (line, extraIndent) {
 
-  var diffs = formatDiff(String(line.diagnostic.expected), String(line.diagnostic.actual))
+  var diffs = null
   var output = []
+  
+  if (line.diagnostic.expected && line.diagnostic.actual) {
+    diffs = formatDiff(String(line.diagnostic.expected), String(line.diagnostic.actual))
+  }
 
   output.push(indent(format.red.bold(figures.cross + ' ' + line.title)))
-  output.push(indent(format.dim('  at ') + format.dim(line.diagnostic.at)))
+  
+  if (line.diagnostic.at) {
+    output.push(indent(format.dim('  at ') + format.dim(line.diagnostic.at)))
+  }
+  
   output.push('')
-  output.push(errorIndent(format.bgGreen('actual') + ' ' + format.bgRed('expected')))
-  output.push('')
-  output.push(errorIndent(diffs))
-  output.push('')
+  if (diffs) {
+    output.push(errorIndent(format.bgGreen('actual') + ' ' + format.bgRed('expected')))
+    output.push('')
+    output.push(errorIndent(diffs))
+    output.push('')
+  }
 
   return output
     .map(function (input) {return addExtraIndent(extraIndent) + input})
