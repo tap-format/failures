@@ -48,14 +48,14 @@ var exports = module.exports = function (input$) {
       input$.failingAssertions$
     )
     .scan(function (accum, item) {
-
-      if (item.type === 'test') {
+      if (item.type === 'test' || (item.type === 'assertion' && !accum[item.testNumber])) {
         accum[item.testNumber] = {
           test: item,
           assertions: []
         }
       }
-      else {
+      
+      if(item.type === 'assertion') {
         accum[item.testNumber].assertions.push(item)
       }
 
@@ -95,7 +95,18 @@ var exports = module.exports = function (input$) {
 exports.formatAssertionError = formatAssertionError
 
 function formatAssertionError (line, extraIndent) {
+  if (line.diagnostic.expected && line.diagnostic.actual) {
+    return formatAssertionErrorUnitTesting(line, extraIndent);
+  }
 
+  if (line.diagnostic.message && line.diagnostic.severity && line.diagnostic.file) {
+    return formatAssertionErrorLinting(line, extraIndent);
+  }
+
+  throw new Error('Unknown diagnostic output: ' + JSON.stringify(line.diagnostic));
+}
+
+function formatAssertionErrorUnitTesting (line, extraIndent) {
   var diffs = formatDiff(String(line.diagnostic.expected), String(line.diagnostic.actual))
   var output = []
 
@@ -106,6 +117,19 @@ function formatAssertionError (line, extraIndent) {
   output.push('')
   output.push(errorIndent(diffs))
   output.push('')
+
+  return output
+    .map(function (input) {return addExtraIndent(extraIndent) + input})
+    .join('\n')
+}
+
+function formatAssertionErrorLinting (line, extraIndent) {
+  var output = [];
+
+  output.push(indent(format.red.bold(figures.cross + ' ' + line.diagnostic.message) + format.red('  (' + line.diagnostic.name + ')')))
+  output.push(indent(format.dim('  in ') + format.dim(line.diagnostic.file)))
+  output.push(indent(format.dim('  on line ') + format.bold(line.diagnostic.line)))
+  output.push('');
 
   return output
     .map(function (input) {return addExtraIndent(extraIndent) + input})
